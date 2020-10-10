@@ -30,12 +30,14 @@ function addToDo(toDo,index,done,remove){
     if(remove) return;
     
     const LINE = done ? "line-through" : "";
+    const bgColor = done ? "#26ca299b" : "rgba(99, 99, 99, 0.698)";
+    console.log(LINE);
     const item =`<li class="todo-app__item">
                     <div class="todo-app__checkbox" >
-                        <input type="checkbox"  id="${index}" >
+                        <input type="checkbox"  id="${index}" style="background=${bgColor};">
                         <label for="${index}"  id="${index}" job="complete"></label>
                      </div>
-                    <h1 class="todo-app__item-detail ${LINE}" >${toDo}</h1>
+                    <h1 class="todo-app__item-detail " style="text-decoration: ${LINE};">${toDo}</h1>
                     <img src="img/x.png" class="todo-app__item-x" job="delete" id="${index}">
                 </li>
                 `;
@@ -55,11 +57,17 @@ function showActiveNumber(){
 }
 function completeToDo(element){
     element.parentNode.parentNode.querySelector(".todo-app__item-detail").classList.toggle("checked");
-    LIST[element.id].done = !LIST[element.id].done;
- //   localStorage.setItem("TODO",JSON.stringify(LIST));
+  /*  console.log(element.id);
+    console.log(LIST[element.id].done);
+    */
+    LIST[element.id].done = LIST[element.id].done ? false :true;
+  /*  console.log(LIST[element.id].done);
+    localStorage.setItem("TODO",JSON.stringify(LIST));
+    console.log("test");*/
 }
 function removeToDo(element){
     element.parentNode.parentNode.removeChild(element.parentNode);
+    LIST[element.id].remove = !LIST[element.id].remove;
  //   localStorage.setItem("TODO",JSON.stringify(LIST));
 }
 list.addEventListener("click",event=>{
@@ -129,7 +137,7 @@ input.addEventListener('keyup', event => {
         input.value="";
     }
 });
-
+console.log(LIST);
 /*
 function toggleToDo(index){
     LIST[index].done = LIST[index].done ? false :true;
